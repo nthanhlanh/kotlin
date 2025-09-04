@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: kotlin
+
+  datasource:
+    url: jdbc:postgresql://localhost:54321/kotlin
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jooq:
+    sql-dialect: POSTGRES
+
+server:
+  port: 8089
+

@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "3.5.5"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("nu.studer.jooq") version "10.1.1" // plugin jOOQ
+	id("org.flywaydb.flyway") version "9.22.3"
 }
 
 group = "com.example"
@@ -25,6 +26,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.springframework.boot:spring-boot-starter-jooq")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	implementation("org.flywaydb:flyway-core:10.13.0")
 
 	runtimeOnly("org.postgresql:postgresql")
 
@@ -83,6 +85,14 @@ jooq {
 	}
 }
 
+flyway {
+	url = "jdbc:postgresql://localhost:54321/kotlin"
+	user = "postgres"
+	password = "postgres"
+	cleanDisabled = false
+}
+
+
 kotlin {
 	sourceSets {
 		main {
@@ -90,4 +100,3 @@ kotlin {
 		}
 	}
 }
-

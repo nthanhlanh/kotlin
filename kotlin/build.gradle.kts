@@ -4,7 +4,7 @@ plugins {
 	id("org.springframework.boot") version "3.5.5"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("nu.studer.jooq") version "10.1.1" // plugin jOOQ
-	id("org.flywaydb.flyway") version "9.22.3"
+	id("org.flywaydb.flyway") version "9.22.3" // plugin Flyway
 }
 
 group = "com.example"
@@ -22,10 +22,14 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.springframework.boot:spring-boot-starter-jooq")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.8.1")
+
+    //flyWay dependency
 	implementation("org.flywaydb:flyway-core:10.13.0")
 	implementation("org.flywaydb:flyway-database-postgresql:10.13.0")
 
@@ -49,9 +53,9 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-	dependsOn("generateJooq")
-}
+//tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+//	dependsOn("generateJooq")
+//}
 
 jooq {
 	version.set("3.19.18") // phiên bản jOOQ

@@ -23,7 +23,7 @@ Flyway is integrated for managing database migrations.
 ### Useful commands
 - To run migrations manually:
 ```
-./gradlew flywayMigrate
+./gradlew flywayClean flywayMigrate flywayInfo
 ```
 - To check migration status:
 ```

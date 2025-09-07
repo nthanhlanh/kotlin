@@ -13,13 +13,18 @@ public class TestController {
     @GetMapping("/test")
     suspend fun testEndpoint(): String {
         println("start");
-        GlobalScope.launch {
-                delay(500);
-                println("job done");
-            }
+        backgroundJob() // launch sẽ không block coroutine chính, nó sẽ chạy song song
+        //backgroundJob().join() // sẽ block coroutine chính cho đến khi job này hoàn thành
         println("after launch");
-        delay(2000);
+        delay(5000);
         println("after launch delay");
         return "aaaaaa"
+    }
+
+    private fun backgroundJob(): Job {
+        return GlobalScope.launch {
+            delay(3000)
+            println("Background job completed")
+        }
     }
 }

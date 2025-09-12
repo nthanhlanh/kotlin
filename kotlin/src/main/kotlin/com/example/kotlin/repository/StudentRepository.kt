@@ -7,6 +7,7 @@ import com.example.kotlin.tables.references.COURSES
 import com.example.kotlin.tables.references.ENROLLMENTS
 import com.example.kotlin.tables.references.STUDENTS
 import com.example.kotlin.tables.references.TEACHERS
+import kotlinx.coroutines.delay
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
 
@@ -17,10 +18,14 @@ class StudentRepository(private val dsl: DSLContext) {
         dsl.selectFrom(STUDENTS)
             .fetchInto(StudentDto::class.java)
 
-    fun findById(id: Int): StudentDto? =
-        dsl.selectFrom(STUDENTS)
+    suspend fun findById(id: Int): StudentDto? {
+        delay(2000)
+        println("bbbbbbbbbb")
+        return dsl.selectFrom(STUDENTS)
             .where(STUDENTS.ID.eq(id))
             .fetchOneInto(StudentDto::class.java)
+    }
+
 
     fun create(student: StudentDto): StudentDto =
         dsl.insertInto(STUDENTS)

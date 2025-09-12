@@ -13,7 +13,7 @@ public class TestController {
     @GetMapping("/test")
     suspend fun testEndpoint(): String {
         println("start");
-        backgroundJob() // launch sẽ không block coroutine chính, nó sẽ chạy song song
+        var job = backgroundJob() // launch sẽ không block coroutine chính, nó sẽ chạy song song
         //backgroundJob().join() // sẽ block coroutine chính cho đến khi job này hoàn thành
         println("after launch");
         delay(5000);

@@ -126,3 +126,54 @@ suspend fun handle(): String = coroutineScope {
 
 👉 Viết code như đồng bộ, chạy thực chất bất đồng bộ, tận dụng CPU &
 memory tốt hơn so với mô hình blocking truyền thống.
+
+
+---
+
+## Học thêm để hiểu sâu hơn
+
+### 1. Dispatcher
+- `Dispatchers.Default`, `Dispatchers.IO`, `Dispatchers.Unconfined`, `Dispatchers.Main`.
+- Trong WebFlux: thường chạy trên event-loop (Netty), tránh code blocking. 
+- Nếu cần blocking (vd JDBC) → dùng `Dispatchers.IO`.
+
+### 2. Structured Concurrency
+- `coroutineScope {}` và `supervisorScope {}`.
+- Khác nhau: khi coroutine con lỗi, cha có bị cancel theo hay không.
+
+### 3. Exception Handling
+- Xử lý lỗi với `try/catch` trong suspend.
+- Dùng `CoroutineExceptionHandler` cho coroutine builder.
+
+### 4. Flow (Hot vs Cold)
+- `Flow`, `SharedFlow`, `StateFlow`.
+- Tích hợp với WebFlux (`Flow` ↔ `Flux`).
+
+### 5. Backpressure
+- Reactor: `Flux`/`Mono` quản lý backpressure.
+- Kotlin: `Flow` với operators như `buffer`, `conflate`.
+
+### 6. So sánh Reactor vs Coroutine
+- Reactor: callback style với `flatMap`, `map`...
+- Coroutine: code như đồng bộ, dễ đọc hơn.
+- Khi debug/log cần hiểu cách coroutine suspend & resume.
+
+---
+
+## Lời khuyên
+- Kiến thức hiện tại đã đủ để viết API WebFlux + Coroutine trong thực tế.
+- Các chủ đề nâng cao (dispatcher, error handling, flow, backpressure) cần khi dự án lớn hơn.
+
+---
+
+## Roadmap gợi ý
+1. **Cơ bản**: suspend fun, coroutineScope, launch/async.
+2. **Thực hành WebFlux**: viết API handler với coroutine.
+3. **Dispatcher**: học cách chọn dispatcher phù hợp.
+4. **Structured Concurrency**: quản lý nhiều coroutine con.
+5. **Exception Handling**: quản lý lỗi trong coroutine.
+6. **Flow**: stream dữ liệu, tích hợp với Flux/Mono.
+7. **Backpressure**: xử lý dòng dữ liệu lớn.
+8. **Debug & Tracing**: quan sát coroutine chạy trong production.
+
+👉 Sau roadmap này bạn sẽ vững toàn diện về **Coroutine + WebFlux**.
